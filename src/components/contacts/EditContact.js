@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import TextInputGroup from '../layout/TextInputGroup';
+import React, { Component } from "react";
+import TextInputGroup from "../layout/TextInputGroup";
 
 class EditContact extends Component {
   state = {
-    name: '',
-    email: '',
-    phone: '',
-    errors: {}
+    name: "",
+    email: "",
+    phone: "",
+    errors: {},
   };
 
   onSubmit = (e) => {
@@ -15,25 +15,25 @@ class EditContact extends Component {
     const { name, email, phone } = this.state;
 
     // Check For Errors
-    if (name === '') {
-      this.setState({ errors: { name: 'Name is required' } });
+    if (name === "") {
+      this.setState({ errors: { name: "Name is required" } });
       return;
     }
 
-    if (email === '') {
-      this.setState({ errors: { email: 'Email is required' } });
+    if (email === "") {
+      this.setState({ errors: { email: "Email is required" } });
       return;
     }
 
-    if (phone === '') {
-      this.setState({ errors: { phone: 'Phone is required' } });
+    if (phone === "") {
+      this.setState({ errors: { phone: "Phone is required" } });
       return;
     }
 
     const updContact = {
       name,
       email,
-      phone
+      phone,
     };
 
     const { id } = this.props.match.params;
@@ -42,16 +42,16 @@ class EditContact extends Component {
 
     // Clear State
     this.setState({
-      name: '',
-      email: '',
-      phone: '',
-      errors: {}
+      name: "",
+      email: "",
+      phone: "",
+      errors: {},
     });
 
-    this.props.history.push('/');
+    this.props.history.push("/");
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     const { name, email, phone, errors } = this.state;

@@ -7,9 +7,11 @@ import { deleteContact } from "../../actions/contactActions";
 class Contact extends Component {
   state = {
     showContactInfo: false,
+    deleteLoading: false,
   };
 
   onDeleteClick = (id) => {
+    this.setState({ deleteLoading: true });
     this.props.deleteContact(id);
   };
 
@@ -17,10 +19,15 @@ class Contact extends Component {
     const { id, name, email, phone } = this.props.contact;
     const { showContactInfo } = this.state;
 
-    return (
+    return this.state.deleteLoading ? (
+      <div className="card card-body mb-3">
+        <h4 className="text-danger">Deleting...</h4>
+      </div>
+    ) : (
       <div className="card card-body mb-3">
         <h4>
-          {name}{" "}
+          {" "}
+          {name}
           <i
             onClick={() =>
               this.setState({

@@ -11,10 +11,22 @@ class EditContact extends Component {
     email: "",
     phone: "",
     errors: {},
+    waiting: false,
   };
+
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+    const { name, email, phone } = nextProps.contact;
+    this.setState({
+      name,
+      email,
+      phone,
+      waiting: false,
+    });
+  }
 
   componentDidMount() {
     const { id } = this.props.match.params;
+    this.setState({ waiting: true });
     this.props.getContact(id);
   }
 
@@ -68,6 +80,12 @@ class EditContact extends Component {
     return (
       <div className="card mb-3">
         <div className="card-header">Edit Contact</div>
+        {this.state.waiting ? (
+          <p className="text-danger text-center mb-1 mt-1">
+            Request to API is Loading
+          </p>
+        ) : null}
+
         <div className="card-body">
           <form onSubmit={this.onSubmit}>
             <TextInputGroup
@@ -112,8 +130,8 @@ EditContact.propTypes = {
   getContact: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  contact: state.contact.contact;
-};
+const mapStateToProps = (state) => ({
+  contact: state.contact.contact,
+});
 
 export default connect(mapStateToProps, { getContact })(EditContact);

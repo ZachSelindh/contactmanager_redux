@@ -9,6 +9,7 @@ import {
 const initialState = {
   contacts: [],
   contact: {},
+  loadingSomething: false,
 };
 
 function contactReducer(state = initialState, action) {
@@ -27,6 +28,15 @@ function contactReducer(state = initialState, action) {
       };
     case ADD_CONTACT:
       return { ...state, contacts: [action.payload, ...state.contacts] };
+    case UPDATE_CONTACT:
+      return {
+        ...state,
+        contacts: state.contacts.map((contact) =>
+          contact.id === action.payload.id
+            ? (contact = action.payload)
+            : contact
+        ),
+      };
     default:
       return state;
   }

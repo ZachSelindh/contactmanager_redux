@@ -51,3 +51,21 @@ export const addContact = (contact) => async (dispatch) => {
     payload: res.data,
   });
 };
+
+export const updateContact = (contact) => async (dispatch) => {
+  const axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const res = await axios.put(
+    `https://jsonplaceholder.typicode.com/users/${contact.id}`,
+    contact,
+    axiosConfig
+  );
+  dispatch({
+    type: UPDATE_CONTACT,
+    payload: res.data,
+  });
+};
